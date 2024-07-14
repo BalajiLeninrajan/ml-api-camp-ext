@@ -69,11 +69,12 @@ export async function analyzeImageML(type, imageData) {
 
 export async function generateCaptionML(textData, labelData) {
     const modelId = "amazon.titan-text-lite-v1";
-    const prompt = ```
-    Write a caption for an image picturing the phrases ${textData.join(", ")}.
-    Parts of the image were labled, the labels are ${labelData.join(", ")}.
-    Don't show the prompt, only the caption. Do not add anything like Here is a caption... just return the caption alone
-    ```;
+    const prompt =
+        "Write a caption for an image picturing the phrases " +
+        textData.join(", ") +
+        ". Parts of the image were labled, the labels are " +
+        labelData.join(", ") +
+        ". Don't show the prompt, only the caption. Do not add anything like Here is a caption... just return the caption alone";
     const params = {
         modelId,
         messages: [
@@ -87,7 +88,7 @@ export async function generateCaptionML(textData, labelData) {
     try {
         if (!bedrockClient) bedrockClient = new BedrockRuntimeClient(creds);
         const query = new ConverseCommand(params);
-        let response = await bedrockClient.send();
+        let response = await bedrockClient.send(query);
         returnData = {
             type: "success",
             text: response,
