@@ -62,6 +62,10 @@ const onDetectLabelsClick = async () => {
 const onDetectTextClick = async () => {
   await analyzeImage("text");
 };
+
+const onDetectCaptionClick = async () => {
+  await analyzeImage("caption");
+};
 </script>
 
 <template>
@@ -100,6 +104,17 @@ const onDetectTextClick = async () => {
           :loading="apiDetectTextRequestInProgress"
           ><span>Detect<br />Text</span></v-btn
         >
+        <v-btn
+          raised
+          x-large
+          variant="tonal"
+          @click="onDetectCaptionClick"
+          class="mt-2"
+          style="font-size: 18px; text-transform: none"
+          height="100px"
+          :loading="apiDetectTextRequestInProgress"
+          ><span>Generate<br />Caption</span></v-btn
+        >
         <v-dialog v-model="apiMessage.show">
           <v-alert dismissible :type="apiMessage.type" :text="apiMessage.text">
             <v-spacer></v-spacer>
@@ -121,6 +136,7 @@ const onDetectTextClick = async () => {
               <v-icon>mdi-image-search-outline</v-icon> Labels</v-tab
             >
             <v-tab value="ocr"> <v-icon>mdi-ocr</v-icon> Text</v-tab>
+            <v-tab value="caption"> <v-icon>mdi-creation</v-icon> Caption</v-tab>
           </v-tabs>
 
           <v-window v-model="tab">
@@ -178,6 +194,31 @@ const onDetectTextClick = async () => {
                       <span>{{ text.Text }}</span>
                     </td>
                     <td>{{ parseFloat(text.Confidence).toFixed(1) }}%</td>
+                  </tr>
+                </tbody>
+              </v-table>
+            </v-window-item>
+            <v-window-item value="caption">
+              <v-table
+                style="width: 100%; height: 400px; text-align: center"
+                v-if="images[selectedImageIndex]"
+              >
+                <thead>
+                  <tr>
+                    <th style="text-align: center; font-size: 18px">
+                      <strong>Generated Caption</strong>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="objectDetected in images[selectedImageIndex]
+                      ?.rekResult?.Labels"
+                    :key="objectDetected.Name"
+                  >
+                    <td>
+                      <span> {{ "Placeholder" }} </span>
+                    </td>
                   </tr>
                 </tbody>
               </v-table>
