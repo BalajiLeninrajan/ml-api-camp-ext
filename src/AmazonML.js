@@ -53,7 +53,7 @@ export async function analyzeImageML(type, imageData) {
                 text: response,
             };
         } else if (type == "caption") {
-            const returnData = {
+            returnData = {
                 type: "warning",
                 text: "This feature has not been implemented yet!",
             };
