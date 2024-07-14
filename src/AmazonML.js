@@ -68,7 +68,7 @@ export async function analyzeImageML(type, imageData) {
 }
 
 export async function generateCaptionML(textData, labelData) {
-    const modelId = "amazon.titan-text-lite-v1";
+    const modelId = "amazon.titan-text-lite-v1"; // Should change to better model
     const prompt =
         "Write a caption for an image picturing the phrases " +
         textData.join(", ") +
