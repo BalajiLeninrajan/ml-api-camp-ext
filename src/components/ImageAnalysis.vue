@@ -20,6 +20,7 @@ let tab = ref("labels");
 
 let apiDetectLabelsRequestInProgress = ref(false);
 let apiDetectTextRequestInProgress = ref(false);
+let apiDetectCaptionRequestInProgress = ref(false);
 const analyzeImage = async (type) => {
   let imageSrc = images.value[selectedImageIndex.value].src;
   let requestInProgress;
@@ -31,6 +32,9 @@ const analyzeImage = async (type) => {
   } else if (type === "text") {
     requestInProgress = apiDetectTextRequestInProgress;
     resultField = "texResult";
+  } else if (type == "caption") {
+    requestInProgress = apiDetectCaptionRequestInProgress;
+    resultField = "captionResult";
   }
 
   requestInProgress.value = true;
