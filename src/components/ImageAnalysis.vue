@@ -102,7 +102,7 @@ const onDetectCaptionClick = async () => {
           x-large
           variant="tonal"
           @click="onDetectTextClick"
-          class="mt-2"
+          class="mt-2 mb-2"
           style="font-size: 18px; text-transform: none"
           height="100px"
           :loading="apiDetectTextRequestInProgress"
