@@ -1,5 +1,4 @@
-# ML API CAMP
-### Workshop Link: https://catalog.us-east-1.prod.workshops.aws/workshops/b0b09da3-8c15-4c6a-aaf1-c265fe6e595d/en-US
+# [ML API CAMP](https://catalog.us-east-1.prod.workshops.aws/workshops/b0b09da3-8c15-4c6a-aaf1-c265fe6e595d/en-US)
 
 ## Setup
 - Useful Documentation:
