@@ -62,8 +62,8 @@ const generateCaption = async () => {
 
   let selectedImage = images.value[selectedImageIndex.value];
   if (
-    Object.keys(selectedImage["rekResult"]).length === 0 ||
-    Object.keys(selectedImage["texResult"]).length === 0
+    Object.keys(selectedImage.rekResult).length === 0 ||
+    Object.keys(selectedImage.texResult).length === 0
   ) {
     apiMessage.value.type = "warning";
     apiMessage.value.text = "Detect Labels and Detect Text must be run first";
@@ -72,10 +72,40 @@ const generateCaption = async () => {
     return;
   }
 
+  let labelData = [];
+  let textData = [];
+
+  for (const objectDetected in selectedImage.rekResult.Labels) {
+    if (objectDetected.Confidence < 90) {
+      continue;
+    }
+    labelData.push(objectDetected.Name);
+  }
+
+  for (const text in selectedImage.texResult.Blocks) {
+    if (text.BlockType !== "LINE" || text.Confidence < 90) {
+      continue;
+    }
+    textData.push(text.Text);
+  }
+
   try {
-    const returnData = generateCaptionML();
+    const returnData = await generateCaptionML(type, imageSrc);
+    const results = JSON.parse(returnData);
+
+    if (results.type === "success") {
+      selectedImage.captionResult = results.text;
+    } else {
+      apiMessage.value.type = results.type;
+      apiMessage.value.text = results.text;
+      apiMessage.value.show = true;
+    }
   } catch (error) {
-    
+    apiMessage.value.type = "error";
+    apiMessage.value.text = error;
+    apiMessage.value.show = true;
+  } finally {
+    requestInProgress.value = false;
   }
 }
 
@@ -237,7 +267,14 @@ const onDetectCaptionClick = async () => {
                 <tbody>
                   <tr>
                     <td>
-                      <span> {{ "Placeholder" }} </span>
+                      <span> {{ 
+                        images[selectedImageIndex]
+                        .captionResult
+                        .output
+                        .message
+                        .content[0]
+                        .text 
+                      }} </span>
                     </td>
                   </tr>
                 </tbody>

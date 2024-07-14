@@ -26,7 +26,7 @@ export async function initImages() {
                     src: src,
                     rekResult: {},
                     texResult: {},
-                    caption: {},
+                    captionResult: {},
                 });
             }
         })
