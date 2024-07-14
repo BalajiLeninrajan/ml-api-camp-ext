@@ -116,7 +116,7 @@ const onDetectCaptionClick = async () => {
           class="mt-2"
           style="font-size: 18px; text-transform: none"
           height="100px"
-          :loading="apiDetectTextRequestInProgress"
+          :loading="apiDetectCaptionRequestInProgress"
           ><span>Generate<br />Caption</span></v-btn
         >
         <v-dialog v-model="apiMessage.show">

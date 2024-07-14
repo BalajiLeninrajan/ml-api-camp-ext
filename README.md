@@ -11,8 +11,8 @@
 ## Lab 1: Adding Amazon Rekognition to an existing web app
 - Useful Documentation:
     - [RekognitionClient class](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-client-rekognition/Class/RekognitionClient/)
-    - [Rekognition DetectLabels](https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DetectLabels.html)
-    - [DetectLabelsCommand API](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-client-rekognition/Class/DetectLabelsCommand/)
+    - [DetectLabels API](https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DetectLabels.html)
+    - [DetectLabelsCommand class](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-client-rekognition/Class/DetectLabelsCommand/)
     - [MIME Types (explains the application/octet-stream stuff)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)
 - Instructions in provided material
 
@@ -33,3 +33,4 @@
     - [Build a Generative AI Enabled Web App Workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/ed533291-e036-4086-8bb6-23b135f71e5d/en-US/4-workflow-1)
     - [Post about implementing the Gen AI workshop](https://medium.com/@sumbul.first/generative-ai-enabled-web-app-81820cbe25d6)
     - [Post about bedrock workshop](https://medium.com/@dminhk/amazon-bedrock-workshop-getting-started-ffcf77982857)
+    - [BedrockRuntimeClient class](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-client-bedrock-runtime/Class/BedrockRuntimeClient/) 

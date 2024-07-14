@@ -18,6 +18,7 @@ const creds = {
 
 let rekognitionClient = null;
 let textractClient = null;
+let bedrockClient = null;
 
 export async function analyzeImageML(type, imageData) {
     const uimage_bytes = base64ToUint8Array(
@@ -66,6 +67,8 @@ export async function analyzeImageML(type, imageData) {
     }
     return JSON.stringify(returnData);
 }
+
+export async function generateCaptionML(textData, labelData) {}
 
 // imageData is string with data:application/octet-stream;base64,...
 function base64ToUint8Array(base64Data) {
