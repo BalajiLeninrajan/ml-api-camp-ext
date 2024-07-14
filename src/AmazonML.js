@@ -8,7 +8,7 @@ import {
     TextractClient,
 } from "@aws-sdk/client-textract";
 import {
-    BedRockRuntimeClient,
+    BedrockRuntimeClient,
     ConverseCommand,
 } from "@aws-sdk/client-bedrock-runtime";
 
@@ -83,10 +83,9 @@ export async function generateCaptionML(textData, labelData) {
             },
         ],
     };
-
     var returnData = null;
     try {
-        if (!bedrockClient) bedrockClient = new BedRockRuntimeClient(creds);
+        if (!bedrockClient) bedrockClient = new BedrockRuntimeClient(creds);
         const query = new ConverseCommand(params);
         let response = await bedrockClient.send();
         returnData = {
