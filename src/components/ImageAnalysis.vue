@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from "vue";
-import { analyzeImageML } from "../AmazonML.js";
+import { analyzeImageML, generateCaptionML } from "../AmazonML.js";
 import { shareImageList, shareSelectedImageIndex, } from "../ImageState";
 let { images } = shareImageList();
 let { selectedImageIndex } = shareSelectedImageIndex();
@@ -32,9 +32,6 @@ const analyzeImage = async (type) => {
   } else if (type === "text") {
     requestInProgress = apiDetectTextRequestInProgress;
     resultField = "texResult";
-  } else if (type == "caption") {
-    requestInProgress = apiDetectCaptionRequestInProgress;
-    resultField = "captionResult";
   }
 
   requestInProgress.value = true;
@@ -59,6 +56,29 @@ const analyzeImage = async (type) => {
   }
 };
 
+const generateCaption = async () => {
+  let requestInProgress = apiDetectCaptionRequestInProgress;
+  requestInProgress.value = true;
+
+  let selectedImage = images.value[selectedImageIndex.value];
+  if (
+    Object.keys(selectedImage["rekResult"]).length === 0 ||
+    Object.keys(selectedImage["texResult"]).length === 0
+  ) {
+    apiMessage.value.type = "warning";
+    apiMessage.value.text = "Detect Labels and Detect Text must be run first";
+    apiMessage.value.show = true;
+    requestInProgress.value = false;
+    return;
+  }
+
+  try {
+    const returnData = generateCaptionML();
+  } catch (error) {
+    
+  }
+}
+
 const onDetectLabelsClick = async () => {
   await analyzeImage("labels");
 };
@@ -68,7 +88,7 @@ const onDetectTextClick = async () => {
 };
 
 const onDetectCaptionClick = async () => {
-  await analyzeImage("caption");
+  await generateCaption();
 };
 </script>
 
@@ -215,11 +235,7 @@ const onDetectCaptionClick = async () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    v-for="objectDetected in images[selectedImageIndex]
-                      ?.rekResult?.Labels"
-                    :key="objectDetected.Name"
-                  >
+                  <tr>
                     <td>
                       <span> {{ "Placeholder" }} </span>
                     </td>
