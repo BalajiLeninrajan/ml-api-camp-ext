@@ -90,7 +90,7 @@ const generateCaption = async () => {
   }
 
   try {
-    const returnData = await generateCaptionML(type, imageSrc);
+    const returnData = await generateCaptionML(textData, labelData);
     const results = JSON.parse(returnData);
 
     if (results.type === "success") {
