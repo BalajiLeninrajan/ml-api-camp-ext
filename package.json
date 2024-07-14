@@ -11,6 +11,7 @@
         "@aws-sdk/client-textract": "^3.449.0",
         "@aws-sdk/client-bedrock-runtime": "^3.614.0",
         "@mdi/font": "7.0.96",
+        "buffer": "^6.0.3",
         "roboto-fontface": "*",
         "vue": "^3.2.38",
         "vuetify": "^3.4.0",
