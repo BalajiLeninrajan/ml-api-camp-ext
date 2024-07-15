@@ -34,7 +34,7 @@ export async function analyzeImageML(type, imageData) {
         MinConfidence: 80,
     };
 
-    var returnData = null;
+    let returnData = null;
     try {
         if (type == "labels") {
             // If the client has not been initalized yet, create it
@@ -72,7 +72,7 @@ export async function generateCaptionML(textData, labelData) {
     const prompt =
         "Write a caption for an image picturing the phrases " +
         textData.join(", ") +
-        ". Parts of the image were labled, the labels are " +
+        ". Parts of the image were labeled, the labels are " +
         labelData.join(", ") +
         ". Don't show the prompt, only the caption. Do not add anything like Here is a caption... just return the caption alone";
     const params = {
@@ -84,7 +84,7 @@ export async function generateCaptionML(textData, labelData) {
             },
         ],
     };
-    var returnData = null;
+    let returnData = null;
     try {
         if (!bedrockClient) bedrockClient = new BedrockRuntimeClient(creds);
         const query = new ConverseCommand(params);
