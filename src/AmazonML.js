@@ -16,6 +16,7 @@ export async function generateCaptionML(textData, labelData) {
     return JSON.stringify(returnData);
 }
 
+
 // imageData is string with data:application/octet-stream;base64,...
 function base64ToUint8Array(base64Data) {
     const decoded = Buffer.from(base64Data, "base64");
