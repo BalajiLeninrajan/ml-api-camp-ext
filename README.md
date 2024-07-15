@@ -15,7 +15,7 @@
     - AWSMarketplaceFullAccess
 - Open the generated console sign-in URL in a different browser (or use an incognito window)
 - Use the username and console password shown to login
-- The remainig instructions are in the provived materials
+- The remaining instructions are in the provived materials
 
 ## Lab 1: Adding Amazon Rekognition to an existing web app
 - Useful Documentation:
