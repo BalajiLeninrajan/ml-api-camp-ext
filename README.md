@@ -44,6 +44,14 @@
     - [Post about bedrock workshop](https://medium.com/@dminhk/amazon-bedrock-workshop-getting-started-ffcf77982857)
     - [BedrockRuntimeClient class](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-client-bedrock-runtime/Class/BedrockRuntimeClient/)
 ### Instructions
+- Log in to the IAM user's console
+- Navigate to the Bedrock service page (Services > ML > Bedrock; or just search it)
+- Click on the "Get Started" button in the "Try Bedrock" card
+- On the pop-up on the next page select "Manage model access"
+- Press the "Enable pecific models" button near the top of the next page
+- Select the desired model(TBD) and click next
+    - Anthropic models will require additional information
+- Once you hit "Submit", you should have access to the model
 - Install Bedrock SDK modules
     ```js
     // add this to the top of AmazonML.js
@@ -76,7 +84,7 @@
     ```js
     ...
     export async function generateCaptionML(textData, labelData) {
-        const modelId = "amazon.titan-text-lite-v1"; // The foundation model we want to use
+        const modelId = "amazon.titan-text-lite-v1"; // The foundation model we want to use(TBD)
             const prompt = // The prompt we're going to send to the LLM
                 "Write a caption for an image picturing the phrases " +
                 textData.join(", ") + // Adding the texTract results to the prompt
