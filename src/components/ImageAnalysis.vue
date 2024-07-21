@@ -75,14 +75,14 @@ const generateCaption = async () => {
   let labelData = [];
   let textData = [];
 
-  for (const objectDetected in selectedImage.rekResult.Labels) {
+  for (const objectDetected of selectedImage.rekResult.Labels) {
     if (objectDetected.Confidence < 90) {
       continue;
     }
     labelData.push(objectDetected.Name);
   }
 
-  for (const text in selectedImage.texResult.Blocks) {
+  for (const text of selectedImage.texResult.Blocks) {
     if (text.BlockType !== "LINE" || text.Confidence < 90) {
       continue;
     }
