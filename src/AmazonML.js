@@ -68,9 +68,10 @@ export async function analyzeImageML(type, imageData) {
 }
 
 export async function generateCaptionML(textData, labelData) {
-    const modelId = "amazon.titan-text-lite-v1"; // Should change to better model
+    const modelId = "meta.llama3-8b-instruct-v1:0"; // Should change to better model
+    console.log(textData + labelData);
     const prompt =
-        "Write a caption for an image picturing the phrases " +
+        "Write a short descriptive caption for an image picturing the phrases " +
         textData.join(", ") +
         ". Parts of the image were labeled, the labels are " +
         labelData.join(", ") +
@@ -84,6 +85,7 @@ export async function generateCaptionML(textData, labelData) {
             },
         ],
     };
+    console.log(prompt);
     let returnData = null;
     try {
         if (!bedrockClient) bedrockClient = new BedrockRuntimeClient(creds);
