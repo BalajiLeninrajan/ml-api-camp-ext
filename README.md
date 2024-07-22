@@ -7,6 +7,7 @@
     - [Creating an IAM user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console)
     - [AWS JavaScript SDK](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/)
 ### Instuctions
+- Clone this repo
 - Create an AWS account and activate it (Skip if already done)
 - Create an IAM user with AWS Management Console access and manually attach:
     - AmazonRekognitionFullAccess
