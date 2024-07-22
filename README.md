@@ -1,4 +1,4 @@
-# [ML API CAMP](https://catalog.us-east-1.prod.workshops.aws/workshops/b0b09da3-8c15-4c6a-aaf1-c265fe6e595d/en-US)
+# ML API CAMP
 
 ## Setup
 - Useful Documentation:
@@ -16,23 +16,6 @@
 - Open the generated console sign-in URL in a different browser (or use an incognito window)
 - Use the username and console password shown to login
 - The remaining instructions are in the provived materials
-
-## Lab 1: Adding Amazon Rekognition to an existing web app
-- Useful Documentation:
-    - [RekognitionClient class](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-client-rekognition/Class/RekognitionClient/)
-    - [DetectLabels API](https://docs.aws.amazon.com/rekognition/latest/APIReference/API_DetectLabels.html)
-    - [DetectLabelsCommand class](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-client-rekognition/Class/DetectLabelsCommand/)
-    - [MIME Types (explains the application/octet-stream stuff)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)
-- Instructions in provided material
-
-## Lab 2: Adding Amazon Textract to an existing web app
-- Useful Documentation:
-    - [TextractClient class](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-client-textract/Class/TextractClient/)
-    - [DetectDocumentText API](https://docs.aws.amazon.com/textract/latest/dg/API_DetectDocumentText.html)
-    - [DetectDocumentTextCommand](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/textract/command/DetectDocumentTextCommand/)
-    - [MIME Types (explains the application/octet-stream stuff)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)
-- Instructions in provided material
-- **Extra Challenge**: Complete challenge without looking at guide (access to documentation allowed)
 
 ## Lab3: Adding Amazon Bedrock to an existing web app
 ### Add a new button to use a LLM to generate summaries from lables and text generated with cv and ocr
@@ -115,4 +98,3 @@
         };
     } catch (error) {
     ```
-- Complete code found in `AmazonML.js`
