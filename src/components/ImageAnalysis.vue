@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from "vue";
-import { analyzeImageML } from "../AmazonML.js";
+import { analyzeImageML, generateCaptionML } from "../AmazonML.js";
 import { shareImageList, shareSelectedImageIndex, } from "../ImageState";
 let { images } = shareImageList();
 let { selectedImageIndex } = shareSelectedImageIndex();
@@ -20,6 +20,7 @@ let tab = ref("labels");
 
 let apiDetectLabelsRequestInProgress = ref(false);
 let apiDetectTextRequestInProgress = ref(false);
+let apiDetectCaptionRequestInProgress = ref(false);
 const analyzeImage = async (type) => {
   let imageSrc = images.value[selectedImageIndex.value].src;
   let requestInProgress;
@@ -55,12 +56,69 @@ const analyzeImage = async (type) => {
   }
 };
 
+const generateCaption = async () => {
+  let requestInProgress = apiDetectCaptionRequestInProgress;
+  requestInProgress.value = true;
+
+  let selectedImage = images.value[selectedImageIndex.value];
+  if (
+    Object.keys(selectedImage.rekResult).length === 0 ||
+    Object.keys(selectedImage.texResult).length === 0
+  ) {
+    apiMessage.value.type = "warning";
+    apiMessage.value.text = "Detect Labels and Detect Text must be run first";
+    apiMessage.value.show = true;
+    requestInProgress.value = false;
+    return;
+  }
+
+  let labelData = [];
+  let textData = [];
+
+  for (const objectDetected of selectedImage.rekResult.Labels) {
+    if (objectDetected.Confidence < 90) {
+      continue;
+    }
+    labelData.push(objectDetected.Name);
+  }
+
+  for (const text of selectedImage.texResult.Blocks) {
+    if (text.BlockType !== "LINE" || text.Confidence < 90) {
+      continue;
+    }
+    textData.push(text.Text);
+  }
+
+  try {
+    const returnData = await generateCaptionML(textData, labelData);
+    const results = JSON.parse(returnData);
+
+    if (results.type === "success") {
+      selectedImage.captionResult = results.text;
+    } else {
+      apiMessage.value.type = results.type;
+      apiMessage.value.text = results.text;
+      apiMessage.value.show = true;
+    }
+  } catch (error) {
+    apiMessage.value.type = "error";
+    apiMessage.value.text = error;
+    apiMessage.value.show = true;
+  } finally {
+    requestInProgress.value = false;
+  }
+}
+
 const onDetectLabelsClick = async () => {
   await analyzeImage("labels");
 };
 
 const onDetectTextClick = async () => {
   await analyzeImage("text");
+};
+
+const onDetectCaptionClick = async () => {
+  await generateCaption();
 };
 </script>
 
@@ -94,11 +152,22 @@ const onDetectTextClick = async () => {
           x-large
           variant="tonal"
           @click="onDetectTextClick"
-          class="mt-2"
+          class="mt-2 mb-2"
           style="font-size: 18px; text-transform: none"
           height="100px"
           :loading="apiDetectTextRequestInProgress"
           ><span>Detect<br />Text</span></v-btn
+        >
+        <v-btn
+          raised
+          x-large
+          variant="tonal"
+          @click="onDetectCaptionClick"
+          class="mt-2"
+          style="font-size: 18px; text-transform: none"
+          height="100px"
+          :loading="apiDetectCaptionRequestInProgress"
+          ><span>Generate<br />Caption</span></v-btn
         >
         <v-dialog v-model="apiMessage.show">
           <v-alert dismissible :type="apiMessage.type" :text="apiMessage.text">
@@ -121,6 +190,7 @@ const onDetectTextClick = async () => {
               <v-icon>mdi-image-search-outline</v-icon> Labels</v-tab
             >
             <v-tab value="ocr"> <v-icon>mdi-ocr</v-icon> Text</v-tab>
+            <v-tab value="caption"> <v-icon>mdi-creation</v-icon> Caption</v-tab>
           </v-tabs>
 
           <v-window v-model="tab">
@@ -178,6 +248,34 @@ const onDetectTextClick = async () => {
                       <span>{{ text.Text }}</span>
                     </td>
                     <td>{{ parseFloat(text.Confidence).toFixed(1) }}%</td>
+                  </tr>
+                </tbody>
+              </v-table>
+            </v-window-item>
+            <v-window-item value="caption">
+              <v-table
+                style="width: 100%; height: 400px; text-align: center"
+                v-if="images[selectedImageIndex]"
+              >
+                <thead>
+                  <tr>
+                    <th style="text-align: center; font-size: 18px">
+                      <strong>Generated Caption</strong>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <span> {{ 
+                        images[selectedImageIndex]
+                        .captionResult
+                        .output
+                        .message
+                        .content[0]
+                        .text 
+                      }} </span>
+                    </td>
                   </tr>
                 </tbody>
               </v-table>

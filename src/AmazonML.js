@@ -56,13 +56,14 @@ export async function analyzeImageML(type, imageData) {
   return JSON.stringify(returnData);  
 }
 
+
 // imageData is string with data:application/octet-stream;base64,...
 function base64ToUint8Array(base64Data) {
-  const decoded = Buffer.from(base64Data, "base64");
-  const bytes = new Uint8Array(
-    decoded.buffer,
-    decoded.byteOffset,
-    decoded.byteLength
-  );
-  return bytes;
+    const decoded = Buffer.from(base64Data, "base64");
+    const bytes = new Uint8Array(
+        decoded.buffer,
+        decoded.byteOffset,
+        decoded.byteLength
+    );
+    return bytes;
 }
